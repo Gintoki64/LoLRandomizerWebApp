@@ -34,7 +34,10 @@ namespace LoLRandomizerWebApp.Models
 
         private static Dictionary<string, List<string>> LeerCampeones()
         {
-            string[] lineas = File.ReadAllLines("champions_por_rol.txt");
+            var root = AppContext.BaseDirectory;
+            string ruta = Path.Combine(root, "wwwroot", "data", "champions_por_rol.txt");
+
+            string[] lineas = File.ReadAllLines(ruta);
             Dictionary<string, List<string>> resultado = new Dictionary<string, List<string>>();
             string rolActual = null;
 
@@ -56,7 +59,6 @@ namespace LoLRandomizerWebApp.Models
 
             return resultado;
         }
-
 
     }
 }
