@@ -12,4 +12,4 @@ RUN dotnet publish -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "LoLRandomizerWebApp.dll"]
+ENTRYPOINT ["dotnet", "LoLRandomizerWebApp.dll", "--urls", "http://0.0.0.0:10000"]
