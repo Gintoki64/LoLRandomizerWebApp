@@ -1,0 +1,40 @@
+@{
+    ViewData["Title"] = "LoL Randomizer";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>LoL Randomizer</title>
+    <link rel="stylesheet" href="/css/estilos.css" />
+</head>
+<body>
+    <div class="container">
+        <img src="/images/RandomizerPortada.png" alt="Portada" />
+
+        <form method="post">
+            <h2>Introduce hasta 5 nombres de jugadores</h2>
+            @{
+                var jugadores = ViewBag.Jugadores as List<string> ?? new List<string>();
+            }
+            @for (int i = 0; i < 5; i++) {
+                string valor = jugadores.Count > i ? jugadores[i] : "";
+                <input type="text" name="jugadores" value="@valor" placeholder="Jugador @(i+1)" />
+            }
+            <br />
+            <button type="submit">Generar equipo</button>
+        </form>
+
+        @if (ViewBag.Resultado != null)
+        {
+            <hr />
+            <h3>Resultado</h3>
+            <pre>@ViewBag.Resultado</pre>
+            <form method="get">
+                <button type="submit">Limpiar nombres</button>
+            </form> 
+        }
+    </div>
+</body>
+</html>
