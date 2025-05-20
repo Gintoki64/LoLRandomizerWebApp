@@ -23,3 +23,5 @@ C:\Users\Nai\Desktop\randomLOL\LoLRandomizerWebApp\obj\Debug\net9.0\LoLRandomize
 C:\Users\Nai\Desktop\randomLOL\LoLRandomizerWebApp\obj\Debug\net9.0\LoLRandomizerWebApp.genruntimeconfig.cache
 C:\Users\Nai\Desktop\randomLOL\LoLRandomizerWebApp\obj\Debug\net9.0\ref\LoLRandomizerWebApp.dll
 C:\Users\Nai\Desktop\randomLOL\LoLRandomizerWebApp\obj\Debug\net9.0\compressed\91e1zkz4tb-17ggqqiowt.gz
+C:\Users\Nai\Desktop\randomLOL\LoLRandomizerWebApp\obj\Debug\net9.0\LoLRandomizerWebApp.sourcelink.json
+C:\Users\Nai\Desktop\randomLOL\LoLRandomizerWebApp\obj\Debug\net9.0\compressed\o3yylfq9q8-6u37rq6e93.gz

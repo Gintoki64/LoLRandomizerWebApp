@@ -56,5 +56,7 @@ namespace LoLRandomizerWebApp.Models
 
             return resultado;
         }
+
+
     }
 }
