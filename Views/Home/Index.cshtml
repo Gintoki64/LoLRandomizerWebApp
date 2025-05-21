@@ -3,38 +3,102 @@
     Layout = null;
 }
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <title>LoL Randomizer</title>
-    <link rel="stylesheet" href="/css/estilos.css" />
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Animaciones -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+    
+    <style>
+        body {
+            background-image: url('/images/lol-bg.jpg'); /* Cambia si quieres una imagen diferente */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .glass {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 0 20px #000;
+        }
+
+        input.form-control {
+            background-color: #1a1a1a;
+            color: white;
+            border: 1px solid #555;
+        }
+
+        input.form-control::placeholder {
+            color: #aaa;
+        }
+
+        img.logo {
+            max-width: 100%;
+            max-height: 250px;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        pre {
+            background-color: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            color: #f8f9fa;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <img src="/images/RandomizerPortada.png" alt="Portada" />
+    <div class="container mt-5">
+        <div class="glass text-center animate__animated animate__fadeIn">
+            <img src="/images/RandomizerPortadaSinFondo.png" alt="Portada" class="logo" />
 
-        <form method="post">
-            <h2>Introduce hasta 5 nombres de jugadores</h2>
-            @{
-                var jugadores = ViewBag.Jugadores as List<string> ?? new List<string>();
-            }
-            @for (int i = 0; i < 5; i++) {
-                string valor = jugadores.Count > i ? jugadores[i] : "";
-                <input type="text" name="jugadores" value="@valor" placeholder="Jugador @(i+1)" />
-            }
-            <br />
-            <button type="submit">Generar equipo</button>
-        </form>
+            <form method="post">
+                <h2 class="mb-4">Introduce hasta 5 nombres de jugadores</h2>
 
-        @if (ViewBag.Resultado != null)
-        {
-            <hr />
-            <h3>Resultado</h3>
-            <pre>@ViewBag.Resultado</pre>
-            <form method="get">
-                <button type="submit">Limpiar nombres</button>
-            </form> 
-        }
+                @{
+                    var jugadores = ViewBag.Jugadores as List<string> ?? new List<string>();
+                }
+
+                @for (int i = 0; i < 5; i++)
+                {
+                    string valor = jugadores.Count > i ? jugadores[i] : "";
+                    <div class="mb-3 d-flex justify-content-center">
+                        <input type="text" name="jugadores" value="@valor" placeholder="Jugador @(i+1)" class="form-control text-center" style="max-width: 300px;" />
+                    </div>
+                }
+
+                <button type="submit" class="btn btn-warning btn-lg animate__animated animate__pulse animate__infinite">
+                    Generar equipo
+                </button>
+            </form>
+
+            @if (ViewBag.Resultado != null)
+            {
+                <hr class="my-4 bg-secondary" />
+                <h3>Resultado</h3>
+                <div style="text-align:left; padding: 10px; background: #111; border-radius: 5px;">
+                @Html.Raw(ViewBag.Resultado)
+                </div>
+
+                <form method="get">
+                    <button type="submit" class="btn btn-outline-light mt-2">
+                        Limpiar nombres
+                    </button>
+                </form>
+            }
+        </div>
     </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -7,7 +7,7 @@ Aurora
 Camille
 Cho'Gath
 Darius
-Dr. Mundo
+Dr-Mundo
 Fiora
 Gangplank
 Garen
@@ -38,7 +38,7 @@ Sett
 Shen
 Singed
 Sion
-Tahm Kench
+Tahm-Kench
 Teemo
 Trundle
 Tryndamere
@@ -59,7 +59,7 @@ Amumu
 Bel'Veth
 Briar
 Darius
-Dr. Mundo
+Dr-Mundo
 Diana
 Elise
 Evelynn
@@ -70,21 +70,21 @@ Graves
 Gwen
 Hecarim
 Ivern
-Jarvan IV
+Jarvan-IV
 Jax
 Karthus
 Kayn
 Kha'Zix
 Kindred
-Lee Sin
+Lee-Sin
 Lillia
-Maestro Yi
+Master-yi
 Maokai
 Naafiri
 Nasus
 Nidalee
 Nocturne
-Nunu y Willump
+Nunu
 Pantheon
 Poppy
 Rammus
@@ -106,7 +106,7 @@ Viego
 Volibear
 Warwick
 Wukong
-Xin Zhao
+Xin-Zhao
 Zac
 
 MID
@@ -116,7 +116,7 @@ Akali
 Aurora
 Anivia
 Annie
-Aurelion Sol
+Aurelion-Sol
 Azir
 Brand
 Cassiopeia
@@ -127,7 +127,7 @@ Fizz
 Galio
 Gragas
 Heimerdinger
-Huawei
+Hwei
 Irelia
 Kassadin
 Katarina
@@ -146,7 +146,7 @@ Sylas
 Syndra
 Talon
 Tristana
-Twisted Fate
+Twisted-Fate
 Veigar
 Vel'Koz
 Vex
@@ -173,7 +173,7 @@ Kai'Sa
 Kalista
 Kog'Maw
 Lucian
-Miss Fortune
+Miss-Fortune
 Nilah
 Samira
 Senna
@@ -214,14 +214,14 @@ Poppy
 Pyke
 Rakan
 Rell
-Renata Glasc
+Renata-Glasc
 Seraphine
 Shaco
 Shen
 Sona
 Soraka
 Swain
-Tahm Kench
+Tahm-Kench
 Taric
 Thresh
 Vel'Koz

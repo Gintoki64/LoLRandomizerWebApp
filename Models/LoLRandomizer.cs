@@ -9,9 +9,10 @@ namespace LoLRandomizerWebApp.Models
     {
         static readonly string[] roles = { "TOP", "JUNGLA", "MID", "ADC", "SUPPORT" };
 
-        public static string AsignarRoles(List<string> jugadores)
+        public static string AsignarRoles(List<string> jugadores, string rutaCampeones)
         {
-            Dictionary<string, List<string>> campeonesPorRol = LeerCampeones();
+
+            Dictionary<string, List<string>> campeonesPorRol = LeerCampeones(rutaCampeones);
             Random rand = new Random();
             List<string> rolesDisponibles = roles.OrderBy(x => rand.Next()).ToList();
 
@@ -20,7 +21,10 @@ namespace LoLRandomizerWebApp.Models
             {
                 string rol = rolesDisponibles[i];
                 string campeon = campeonesPorRol[rol][rand.Next(campeonesPorRol[rol].Count)];
-                resultado.Add($"{rol}: {jugadores[i]} → {campeon}");
+                string nombreImagen = campeon.ToLower().Replace(" ", "").Replace("'", "").Replace(".", "").Replace("á", "a").Replace("é", "e").Replace("í", "i").Replace("ó", "o").Replace("ú", "u");
+                string iconoUrl = $"/images/Icons/{nombreImagen}-illustration-icon.png";
+                resultado.Add($"<img src='{iconoUrl}' width='48' style='vertical-align:middle;margin-right:8px' /> {rol}: <strong>{jugadores[i]}</strong> → {campeon}");
+
             }
 
             if (jugadores.Count < 5)
@@ -32,11 +36,8 @@ namespace LoLRandomizerWebApp.Models
             return string.Join(Environment.NewLine, resultado);
         }
 
-        private static Dictionary<string, List<string>> LeerCampeones()
+        private static Dictionary<string, List<string>> LeerCampeones(string ruta)
         {
-            var root = AppContext.BaseDirectory;
-            string ruta = Path.Combine(root, "wwwroot", "data", "champions_por_rol.txt");
-
             string[] lineas = File.ReadAllLines(ruta);
             Dictionary<string, List<string>> resultado = new Dictionary<string, List<string>>();
             string rolActual = null;
@@ -55,6 +56,39 @@ namespace LoLRandomizerWebApp.Models
                 {
                     resultado[rolActual].Add(l);
                 }
+            }
+
+            return resultado;
+        }
+        public static List<ResultadoViewModel> GenerarAsignacion(List<string> jugadores, string rutaCampeones)
+        {
+            Dictionary<string, List<string>> campeonesPorRol = LeerCampeones(rutaCampeones);
+            Random rand = new Random();
+            List<string> rolesDisponibles = roles.OrderBy(x => rand.Next()).ToList();
+
+            var resultado = new List<ResultadoViewModel>();
+
+            for (int i = 0; i < jugadores.Count; i++)
+            {
+                string rol = rolesDisponibles[i];
+                string campeon = campeonesPorRol[rol][rand.Next(campeonesPorRol[rol].Count)];
+                resultado.Add(new ResultadoViewModel
+                {
+                    Jugador = jugadores[i],
+                    Rol = rol,
+                    Campeon = campeon
+                });
+            }
+
+            if (jugadores.Count < 5)
+            {
+                string rolVacio = rolesDisponibles[jugadores.Count];
+                resultado.Add(new ResultadoViewModel
+                {
+                    Jugador = "❌ (vacante)",
+                    Rol = rolVacio,
+                    Campeon = "-"
+                });
             }
 
             return resultado;

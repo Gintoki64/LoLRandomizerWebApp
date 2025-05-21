@@ -1,0 +1,107 @@
+@model List<LoLRandomizerWebApp.Models.ResultadoViewModel>
+@{
+    ViewData["Title"] = "Resultado del Equipo Aleatorio";
+    Layout = null;
+
+    // Selección aleatoria de fondo
+    var rnd = new Random();
+    int fondoId = rnd.Next(1, 5); // asumiendo que tienes lol-bg1 hasta lol-bg5
+    string fondoUrl = $"/images/lol-bg{fondoId}.jpg";
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet" />
+
+    <style>
+        body {
+            background-image: url('@fondoUrl');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Rubik', sans-serif;
+            color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .contenedor {
+            max-width: 1000px;
+            margin: auto;
+            padding: 2rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 1rem;
+        }
+
+        .jugador {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .jugador img {
+            vertical-align: middle;
+        }
+
+        .jugador strong {
+            font-size: 1.2rem;
+            color: #ffc107;
+        }
+
+        .rol-icon {
+            width: 32px;
+            height: 32px;
+        }
+
+        .champion-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 4px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h2>Resultado del Equipo Aleatorio</h2>
+
+        @foreach (var jugador in Model)
+        {
+            var campeonId = jugador.Campeon.ToLower()
+                .Replace("'", "").Replace(" ", "").Replace(".", "")
+                .Replace("á", "a").Replace("é", "e").Replace("í", "i").Replace("ó", "o").Replace("ú", "u");
+
+            var rolIcon = jugador.Rol.ToUpper() switch
+            {
+                "TOP" => Url.Content("~/images/Top_icon.webp"),
+                "JUNGLA" => Url.Content("~/images/Jungle_icon.webp"),
+                "MID" => Url.Content("~/images/Middle_icon.webp"),
+                "ADC" => Url.Content("~/images/Bottom_icon.webp"),
+                "SUPPORT" => Url.Content("~/images/Support_icon.webp"),
+                _ => ""
+            };
+
+            var campeonImgUrl = Url.Content($"~/images/Icons/{campeonId}-illustration-icon.png");
+
+            <div class="jugador">
+                <strong>@jugador.Jugador</strong>
+                <img class="rol-icon" src="@rolIcon" alt="@jugador.Rol" title="@jugador.Rol" />
+                <img class="champion-icon" src="@campeonImgUrl" alt="@jugador.Campeon" title="@jugador.Campeon" />
+                <span><strong>@jugador.Campeon</strong></span>
+            </div>
+        }
+    </div>
+</body>
+</html>
