@@ -25,7 +25,9 @@ namespace LoLRandomizerWebApp.Controllers
             string rutaCampeones = Path.Combine(_env.WebRootPath, "data", "champions_por_rol.txt");
 
             // Generar el resultado como lista de objetos
-            var resultado = LoLRandomizer.GenerarAsignacion(jugadores, rutaCampeones);
+            var jugadoresValidos = jugadores?.FindAll(j => !string.IsNullOrWhiteSpace(j)) ?? new List<string>();
+            var resultado = LoLRandomizer.GenerarAsignacion(jugadoresValidos, rutaCampeones);
+
 
             // Guardar el resultado serializado en TempData usando System.Text.Json
             TempData["Jugadores"] = JsonSerializer.Serialize(resultado);

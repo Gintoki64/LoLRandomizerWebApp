@@ -10,6 +10,7 @@
 }
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8" />
     <title>@ViewData["Title"]</title>
@@ -52,27 +53,59 @@
         }
 
         .jugador strong {
-            font-size: 1.2rem;
-            color: #ffc107;
+            display: inline-block;
+            width: 12em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: right;
         }
 
         .rol-icon {
-            width: 32px;
-            height: 32px;
+            width: 45px;
+            height: 45px;
         }
 
         .champion-icon {
-            width: 48px;
-            height: 48px;
+            width: 80px;
+            height: 80px;
             border-radius: 4px;
+        }
+
+        .jugador span strong {
+            font-size: 1.2rem;
+            min-width: 7em;
+            display: inline-block;
+            text-align: left;
         }
 
         h2 {
             text-align: center;
             margin-bottom: 2rem;
         }
+
+        .boton-volver {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            background-color: #ffc107;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .boton-volver:hover {
+            background-color: #e0a800;
+        }
+
+        .borde-dorado {
+            border: 3px solid gold;
+            box-shadow: 0 0 10px 2px rgba(255, 215, 0, 0.7);
+        }
     </style>
 </head>
+
 <body>
     <div class="contenedor">
         <h2>Resultado del Equipo Aleatorio</h2>
@@ -80,8 +113,8 @@
         @foreach (var jugador in Model)
         {
             var campeonId = jugador.Campeon.ToLower()
-                .Replace("'", "").Replace(" ", "").Replace(".", "")
-                .Replace("á", "a").Replace("é", "e").Replace("í", "i").Replace("ó", "o").Replace("ú", "u");
+            .Replace("'", "").Replace(" ", "").Replace(".", "")
+            .Replace("á", "a").Replace("é", "e").Replace("í", "i").Replace("ó", "o").Replace("ú", "u");
 
             var rolIcon = jugador.Rol.ToUpper() switch
             {
@@ -98,10 +131,38 @@
             <div class="jugador">
                 <strong>@jugador.Jugador</strong>
                 <img class="rol-icon" src="@rolIcon" alt="@jugador.Rol" title="@jugador.Rol" />
-                <img class="champion-icon" src="@campeonImgUrl" alt="@jugador.Campeon" title="@jugador.Campeon" />
-                <span><strong>@jugador.Campeon</strong></span>
+                <img class="champion-icon @(string.IsNullOrEmpty(jugador.Comodin) ? "" : "borde-dorado")"
+                    src="@campeonImgUrl" alt="@jugador.Campeon" title="@jugador.Campeon" />
+                <span>
+                    <strong>@jugador.Campeon</strong>
+                    @if (!string.IsNullOrEmpty(jugador.Comodin))
+                    {
+                        var icono = jugador.Comodin switch
+                        {
+                            "reroll" => Url.Content("~/images/comodines/logo_dado.png"),
+                            "cambio" => Url.Content("~/images/comodines/logo_cambio.png"),
+                            "rey" => Url.Content("~/images/comodines/logo_corona.png"),
+                            _ => null
+                        };
+
+                        var descripcion = jugador.Comodin switch
+                        {
+                            "reroll" => "Comodín: Reroll – Puede cambiar volver a tirar suerte",
+                            "cambio" => "Comodín: Cambio – Puede intercambiar rol y el campeon a otro jugador",
+                            "rey" => "Comodín: Rey – Le cambia el campeon a otro jugador por otro de su elección",
+                            _ => ""
+                        };
+
+                        <img src="@icono" width="90" height="90" style="margin-left:12px; vertical-align:middle;"
+                            title="@descripcion" />
+
+                    }
+                </span>
             </div>
         }
+        <a href="@Url.Action("Index", "Home")" class="boton-volver">Volver</a>
+    </div>
     </div>
 </body>
+
 </html>

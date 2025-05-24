@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LoLRandomizerWebApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+acdbf83bbcf72f01608843f2076129db04344528")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a1d05a15c2ce13f5c62fc7ecd0301c07dd28ea0")]
 [assembly: System.Reflection.AssemblyProductAttribute("LoLRandomizerWebApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LoLRandomizerWebApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

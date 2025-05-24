@@ -68,31 +68,49 @@ namespace LoLRandomizerWebApp.Models
 
             var resultado = new List<ResultadoViewModel>();
 
+            // Comodines
+            List<string> tiposComodin = new List<string> { "reroll", "cambio", "rey" };
+            List<string> comodinesAsignados = new();
+            List<int> indicesJugadoresConComodin = new();
+
+            // Elegir hasta 3 jugadores candidatos sin repetir
+            while (indicesJugadoresConComodin.Count < Math.Min(tiposComodin.Count, jugadores.Count))
+            {
+                int index = rand.Next(jugadores.Count);
+                if (!indicesJugadoresConComodin.Contains(index))
+                    indicesJugadoresConComodin.Add(index);
+            }
+
             for (int i = 0; i < jugadores.Count; i++)
             {
                 string rol = rolesDisponibles[i];
                 string campeon = campeonesPorRol[rol][rand.Next(campeonesPorRol[rol].Count)];
+
+                string comodin = null;
+                if (indicesJugadoresConComodin.Contains(i) && rand.Next(10) == 0) // 1 entre 10
+                {
+                    // Elegir comodín aleatorio no repetido
+                    var comodinDisponible = tiposComodin.Except(comodinesAsignados).OrderBy(x => rand.Next()).FirstOrDefault();
+                    if (comodinDisponible != null)
+                    {
+                        comodin = comodinDisponible;
+                        comodinesAsignados.Add(comodin);
+                    }
+                }
+
                 resultado.Add(new ResultadoViewModel
                 {
                     Jugador = jugadores[i],
                     Rol = rol,
-                    Campeon = campeon
-                });
-            }
-
-            if (jugadores.Count < 5)
-            {
-                string rolVacio = rolesDisponibles[jugadores.Count];
-                resultado.Add(new ResultadoViewModel
-                {
-                    Jugador = "❌ (vacante)",
-                    Rol = rolVacio,
-                    Campeon = "-"
+                    Campeon = campeon,
+                    Comodin = comodin
                 });
             }
 
             return resultado;
         }
+
+
 
     }
 }
